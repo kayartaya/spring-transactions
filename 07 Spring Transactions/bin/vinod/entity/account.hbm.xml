@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="vinod.entity">
+	<class name="Account" table="accounts">
+		<id name="id">
+			<generator class="assigned" />
+		</id>
+		<property name="name" />
+		<property name="amount" />
+
+		<set name="transactions" cascade="save-update">
+			<key column="ac_id" />
+			<one-to-many class="AccountTransaction" />
+		</set>
+
+	</class>
+</hibernate-mapping>
+

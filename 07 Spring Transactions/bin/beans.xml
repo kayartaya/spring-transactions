@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- <aop:aspectj-autoproxy expose-proxy="true"/> -->
+	<!-- an object that can represent a SessionFactory -->
+	<!-- read the information from the hibernate.cfg.xml or you can set all 
+		the properties here itself. -->
+	<bean id="sf"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+	</bean>
+
+	<!-- an object that represent a HibernateTemplate, which incorporates hibernate 
+		Session, Query and Criteria API -->
+	<bean id="ht" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sf" />
+	</bean>
+	
+	<bean id="txManager1"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sf" />
+	</bean>
+	
+	<tx:annotation-driven
+		transaction-manager="txManager1" />
+	
+</beans>
+
+
+
+
+
+
+
+
+
+
+
